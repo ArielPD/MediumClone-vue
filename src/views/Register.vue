@@ -8,7 +8,7 @@
                         <router-link :to="{name: 'register'}">Need an account?</router-link>
                     </p>
                     VALIDATION ERRORS
-                    <form>
+                    <form @submit.prevent="onSubmit">
                         <fieldset class="form-group">
                             <input class="form-control form-control-g" type="text" placeholder="Username"/>
                         </fieldset>
@@ -18,7 +18,10 @@
                         <fieldset class="form-group">
                             <input class="form-control form-control-g" type="password" placeholder="Password"/>
                         </fieldset>
-                        <button class="btn btn-lg btn-primary pull-xs-right">Sign Up</button>
+                        <button class="btn btn-lg btn-primary pull-xs-right"
+                            :disabled="isSubmitting">
+                            Sign Up
+                        </button>
                     </form>
                 </div>
             </div>       
@@ -27,6 +30,22 @@
 </template>
 <script>
 export default {
-    name: 'McvRegister'
+    name: 'McvRegister',
+    computed: {
+       isSubmitting() {
+        return this.$store.state.auth.isSubmitting
+       } 
+    },
+    methods: {
+        onSubmit() {
+          console.log(this.$store.state.auth.isSubmitting);  
+          this.$store.commit('registerStart');  
+          console.log(this.$store.state.auth.isSubmitting);  
+        }
+        // increaseCounter() {
+        //     console.log("increaseCounter");
+        //     this.$store.commit('increment')
+        // }
+    }
 }
 </script>
