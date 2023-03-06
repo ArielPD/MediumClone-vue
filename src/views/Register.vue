@@ -10,13 +10,13 @@
                     VALIDATION ERRORS
                     <form @submit.prevent="onSubmit">
                         <fieldset class="form-group">
-                            <input class="form-control form-control-g" type="text" placeholder="Username"/>
+                            <input class="form-control form-control-g" type="text" placeholder="Username" v-model="username"/>
                         </fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control form-control-g" type="text" placeholder="Email"/>
+                            <input class="form-control form-control-g" type="text" placeholder="Email" v-model="email"/>
                         </fieldset>
                         <fieldset class="form-group">
-                            <input class="form-control form-control-g" type="password" placeholder="Password"/>
+                            <input class="form-control form-control-g" type="password" placeholder="Password" v-model="password"/>
                         </fieldset>
                         <button class="btn btn-lg btn-primary pull-xs-right"
                             :disabled="isSubmitting">
@@ -31,6 +31,13 @@
 <script>
 export default {
     name: 'McvRegister',
+    data() {
+        return {
+           email: '',
+           password: '',
+           username: '' 
+        }
+    },
     computed: {
        isSubmitting() {
         return this.$store.state.auth.isSubmitting
@@ -38,12 +45,17 @@ export default {
     },
     methods: {
         onSubmit() {
-          console.log(this.$store.state.auth.isSubmitting);  
+          //console.log(this.$store.state.auth.isSubmitting);  
           //this.$store.commit('registerStart');  
-          this.$store.dispatch('register', {email: "test@tesst.com", username: 'test', password: 'te'}).then(result => {
+          this.$store.dispatch('register', {
+                email: this.email, 
+                username: this.username, 
+                password: this.password
+            }).then(result => {
             console.log('result from register action', result)
+            this.$router.push({name: 'home'})
           })
-          console.log(this.$store.state.auth.isSubmitting);  
+          //console.log(this.$store.state.auth.isSubmitting);  
         }
         // increaseCounter() {
         //     console.log("increaseCounter");
