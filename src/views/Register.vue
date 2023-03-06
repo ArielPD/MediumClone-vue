@@ -40,7 +40,9 @@ export default {
         onSubmit() {
           console.log(this.$store.state.auth.isSubmitting);  
           //this.$store.commit('registerStart');  
-          this.$store.dispatch('register')
+          this.$store.dispatch('register', {email: "test@tesst.com", username: 'test', password: 'te'}).then(result => {
+            console.log('result from register action', result)
+          })
           console.log(this.$store.state.auth.isSubmitting);  
         }
         // increaseCounter() {
