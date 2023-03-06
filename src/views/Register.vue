@@ -39,7 +39,8 @@ export default {
     methods: {
         onSubmit() {
           console.log(this.$store.state.auth.isSubmitting);  
-          this.$store.commit('registerStart');  
+          //this.$store.commit('registerStart');  
+          this.$store.dispatch('register')
           console.log(this.$store.state.auth.isSubmitting);  
         }
         // increaseCounter() {
